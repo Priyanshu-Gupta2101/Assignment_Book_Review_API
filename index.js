@@ -3,21 +3,21 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-// const authRoutes = require("./routes/auth");
-// const bookRoutes = require("./routes/books");
-// const reviewRoutes = require("./routes/reviews");
-// const searchRoutes = require("./routes/search");
+const authRoutes = require("./routes/auth");
+const bookRoutes = require("./routes/books");
+const reviewRoutes = require("./routes/reviews");
+const searchRoutes = require("./routes/search");
 
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// app.use("/signup", authRoutes);
-// app.use("/login", authRoutes);
-// app.use("/books", bookRoutes);
-// app.use("/reviews", reviewRoutes);
-// app.use("/search", searchRoutes);
+app.use("/auth", authRoutes);
+app.use("/books", bookRoutes);
+app.use("/reviews", reviewRoutes);
+app.use("/search", searchRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Book Review API is running!" });
